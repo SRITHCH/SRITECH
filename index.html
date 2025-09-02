@@ -349,6 +349,62 @@ section.boost .boost-text .btn-ghost:hover{box-shadow:0 0 14px var(--gold),0 0 2
   body{ background-attachment:scroll }
   #btnWhats{ bottom:calc(16px + env(safe-area-inset-bottom)) !important; left:16px !important }
 }
+
+/* === FIX mobile header + search + hero slider === */
+@media (max-width: 900px){
+
+  /* اخفي زر البحث الأحمر نهائياً */
+  .searchbar button{
+    display: none !important;
+  }
+
+  /* خلي الانبوت يملى العرض */
+  .searchbar input{
+    flex: 1;
+    width: 100% !important;
+    border-radius: 999px;
+    background: #0b0b0b;
+    border: 1px solid #262626;
+    color: #fff;
+    font-size: 16px;
+  }
+
+  /* الهيرو يكون سلايد واحد فقط */
+  .hero-track{
+    display: block !important;
+  }
+  .hero-slide{
+    display: grid;
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+    background: #000;
+    border: 0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .hero-img{
+    height: 320px !important;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #000;
+  }
+  .hero h1, .hero p{
+    text-align: center;
+  }
+  .arrow{
+    width: 42px; height: 42px;
+    background:#1a1a1a;
+    border:1px solid #2a2a2a;
+  }
+  .hero .prev{ left: 10px; }
+  .hero .next{ right: 10px; }
+
+  /* الكروت في المنتجات أسفل تكون عمود واحد */
+  .cards{
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+}
 </style>
 </head>
 <body>
