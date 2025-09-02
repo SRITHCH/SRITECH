@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SRI TECH — الرئيسية</title>
+<style>
+/* ============ ROOT ============ */
+:root{
+  --gold:#ffd700;
+  --gold-grad:linear-gradient(90deg,#ffedd5,#fbbf24,#f59e0b,#ffd700);
+  --ink:#0b1220; --muted:#cbd5e1;
+  --header-grad:linear-gradient(270deg,#000,#b91c1c,#000,#dc2626);
+  --bg-grad:linear-gradient(270deg,#1E90FF,#DC2626,#000,#EE82EE,#1E90FF);
+  --radius:14px; --pad:16px;
+}
+@keyframes redBlackMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes sweep{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+*{box-sizing:border-box}
+body{margin:0;color:#fff;font-family:system-ui,Arial;background:var(--bg-grad);background-attachment:fixed}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,#00000010,transparent 50%);mix-blend-mode:soft-light}
+
+/* ===== نص متدرّج ذهبي عام ===== */
+.text-gradient{
+  background-image:var(--gold-grad);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent!important; text-shadow:none!important;
+}
+.text-gradient-glow{position:relative}
+.text-gradient-glow::after{
+  content:""; position:absolute; inset:-4px 0 -6px 0; pointer-events:none;
+  background:radial-gradient(120px 16px at 0% 100%, rgba(255,215,0,.22), transparent 70%);
+  filter:blur(6px); opacity:.6;
+}
+
+/* ============ HEADER ============ */
+header.site-header{position:sticky;top:0;z-index:50;background:var(--header-grad);background-size:500% 500%;animation:redBlackMove 15s ease infinite;border-bottom:5px solid #b8860b;border-radius:var(--radius);padding:8px var(--pad) 12px;margin:0 0 14px;box-shadow:0 6px 16px #00000022}
+.topbar{max-width:1300px;margin:0 auto 10px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.site-header .brand,.site-header .actions{position:relative;top:10px}
+.actions{display:flex;gap:10px;align-items:center;justify-self:end;margin-right:20px}
+.login-link{padding:8px 12px;border-radius:10px;background:#00000022;color:#fff;text-decoration:none;border:1px solid var(--gold);transition:.25s}
+.login-link:hover{box-shadow:0 0 12px var(--gold),0 0 20px var(--gold)}
+.cart-btn{position:relative;display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border-radius:12px;background:transparent;color:#fff;border:1px solid var(--gold);cursor:pointer;transition:.25s}
+.cart-btn:hover{box-shadow:0 0 12px var(--gold),0 0 20px var(--gold);transform:translateY(-1px)}
+.cart-btn svg{width:22px;height:22px}
+.badge{position:absolute;top:-8px;inset-inline-end:-8px;background:#ef4444;color:#fff;min-width:22px;height:22px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;padding:0 6px}
+.searchbar{display:flex;gap:8px;justify-self:center;width:100%;max-width:620px}
+.searchbar input{flex:1;background:#0b1220;border:1px solid #1f2937;color:#fff;border-radius:999px;padding:12px 16px}
+.searchbar input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,215,0,.25)}
+.searchbar button{background:#dc2626;border:none;color:#fff;border-radius:12px;padding:12px 16px;cursor:pointer}
+.brand{display:flex;align-items:center;gap:16px;direction:ltr;color:#fff;text-decoration:none;margin-left:20px}
+.brand img{width:72px;height:72px;transform:scale(1.35);transform-origin:center}
+.brand .name{font-weight:900;font-size:26px;letter-spacing:.3px}
+.navcats{max-width:1300px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.navcats a{padding:10px 14px;border-radius:10px;background:#00000022;color:#e5e7eb;text-decoration:none;border:1px solid var(--gold);transition:.25s}
+.navcats a:hover{box-shadow:0 0 12px var(--gold),0 0 20px var(--gold)}
+.underline{height:2px;background:var(--gold);width:90px;margin:6px auto 0;border-radius:999px}
+
+/* ============ HERO ============ */
+.hero{position:relative;margin:10px auto 0;max-width:1300px;padding:0 var(--pad)}
+.hero-track{display:flex;transition:transform .6s ease;direction:ltr}
+.hero-slide{min-width:100%;display:grid;grid-template-columns:420px 1fr;gap:32px;align-items:center;padding:18px;background:#00000022;border:1px solid #ffffff14;border-radius:14px}
+.hero-img{width:100%;height:320px;border-radius:12px;object-fit:cover;background:#0b1220;display:block}
+.img-frame--hero{position:relative;border:1.5px solid var(--gold);border-radius:16px;padding:10px;background:radial-gradient(900px 500px at 75% 60%,#00000088 0%,#00000044 42%,transparent 72%);box-shadow:0 0 0 1px rgba(255,215,0,.14),0 10px 24px rgba(0,0,0,.35);transition:box-shadow .25s, transform .15s;overflow:hidden}
+.img-frame--hero:hover{box-shadow:0 0 14px rgba(255,215,0,.45),0 0 28px rgba(255,215,0,.25),0 12px 30px rgba(0,0,0,.5)}
+.img-frame--hero::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 72%,rgba(255,215,0,.18) 75%,transparent 78%);animation:sweep 3.5s linear infinite;mix-blend-mode:screen;pointer-events:none}
+.hero-spark{position:absolute;color:var(--gold);font-weight:900;font-size:18px;opacity:.9;filter:drop-shadow(0 0 6px rgba(255,215,0,.35));animation:float 4s ease-in-out infinite}
+.hero-spark.s1{top:6%;left:8%}.hero-spark.s2{top:14%;right:10%;animation-delay:.6s}
+.hero-spark.s3{bottom:10%;left:12%;animation-delay:1.2s}.hero-spark.s4{bottom:6%;right:8%;animation-delay:1.8s}
+.hero h1{margin:0 0 8px;font-size:34px;font-weight:900}
+.hero p{margin:0 0 16px;color:#cbd5e1;line-height:1.8}
+.btn{background:transparent;color:#fff;border:2px solid #e5e7eb;border-radius:10px;padding:10px 18px;cursor:pointer;font-weight:800;transition:.2s}
+.btn:hover{background:#ffffff10;box-shadow:0 0 10px rgba(255,215,0,.4)}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid #ffffff55;background:#00000066;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;z-index:10;transition:.25s}
+.arrow:hover{background:#00000088;border-color:var(--gold);box-shadow:0 0 10px var(--gold)}
+.hero .prev{left:40px}.hero .next{right:40px}
+.dots{display:flex;gap:8px;justify-content:center;margin:12px 0}
+.dots button{width:10px;height:10px;border-radius:50%;border:none;background:#ffffff33}
+.dots .active{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+/* ============ TRUST ============ */
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:center;padding:12px;max-width:1300px;margin:12px auto 0}
+.trust-grid>.card{background:#0b1220;border:1px solid var(--gold);border-radius:10px;padding:10px;text-align:center;transition:.25s}
+.trust-grid>.card:hover{box-shadow:0 0 12px var(--gold),0 0 20px var(--gold)}
+.mini{color:#cbd5e1}
+
+/* ============ PRODUCTS ============ */
+.cards{max-width:1300px;margin:16px auto 40px;padding:0 var(--pad);display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#0b1220;border:1px solid #1f2937;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
+.card img{width:100%;height:160px;object-fit:cover;background:#0b1220}
+.price{display:flex;gap:10px;align-items:center;font-weight:800}
+.old{color:#94a3b8;text-decoration:line-through}.new{color:var(--gold)}
+
+/* ============ FEATURE ============ */
+.feature-section{max-width:1300px;margin:60px auto;padding:0 var(--pad);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;direction:ltr}
+.feature-content h2{font-size:34px;font-weight:900;margin:0 0 14px;text-transform:uppercase}
+.feature-content p{color:#cbd5e1;line-height:1.8;margin:0 0 26px}
+.feature-stats{display:flex;gap:40px;flex-wrap:wrap}.stat{display:flex;align-items:center;gap:10px;font-weight:800}
+.stat .tick{width:22px;height:22px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold)}
+.img-frame{position:relative;border:1.5px solid var(--gold);border-radius:20px;padding:16px;background:radial-gradient(1200px 600px at 75% 60%,#000000aa 0%,#00000055 40%,transparent 70%);box-shadow:0 0 0 1px rgba(255,215,0,.15),0 12px 30px rgba(0,0,0,.45);overflow:hidden;transition:.25s}
+.img-frame:hover{box-shadow:0 0 14px rgba(255,215,0,.45),0 0 28px rgba(255,215,0,.25),0 12px 30px rgba(0,0,0,.55)}
+.img-frame::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 72%,rgba(255,215,0,.18) 75%,transparent 78%);animation:sweep 3.5s linear infinite;pointer-events:none;mix-blend-mode:screen}
+.img-frame img{width:100%;max-height:480px;object-fit:contain;border-radius:14px;display:block}
+.spark{position:absolute;color:var(--gold);font-weight:900;font-size:22px;opacity:.9;filter:drop-shadow(0 0 6px rgba(255,215,0,.35));animation:float 4s ease-in-out infinite}
+.spark.s1{top:10%;left:8%}.spark.s2{top:18%;right:10%}.spark.s3{bottom:12%;left:14%}.spark.s4{bottom:8%;right:8%}
+
+/* ============ BOOST ============ */
+section.boost{max-width:1300px;margin:60px auto;padding:0 var(--pad);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;direction:ltr}
+section.boost .boost-cards{position:relative;height:360px;perspective:900px;will-change:transform}
+section.boost .boost-card{position:absolute;top:50%;left:50%;width:260px;height:300px;transform-style:preserve-3d;border:1.5px solid var(--gold);border-radius:18px;background:#0b1220;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 0 1px rgba(255,215,0,.15);transition:transform .35s ease, box-shadow .25s ease, filter .25s ease}
+section.boost .boost-card::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 72%,rgba(255,215,0,.18) 75%,transparent 78%);animation:sweep 4s linear infinite;mix-blend-mode:screen;pointer-events:none}
+section.boost .boost-card img{width:100%;height:70%;object-fit:cover;display:block}
+section.boost .boost-card .meta{padding:10px 12px}
+section.boost .boost-card .title{font-weight:900;font-size:14px}
+section.boost .boost-card .stars{color:#f59e0b;font-size:12px;margin-top:6px}
+section.boost .boost-card.c1{transform:translate(-50%,-50%) rotate(-14deg) translateX(-160px) translateY(12px);z-index:1;filter:brightness(.9)}
+section.boost .boost-card.c2{transform:translate(-50%,-50%) rotate(-4deg)  translateX(-40px);z-index:2}
+section.boost .boost-card.c3{transform:translate(-50%,-50%) rotate(8deg)   translateX(110px) translateY(8px);z-index:1;filter:brightness(.95)}
+section.boost .boost-text h3{font-size:42px;line-height:1.15;margin:0 0 12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;text-shadow:0 3px 14px rgba(0,0,0,.35)}
+section.boost .boost-text p{color:#cbd5e1;line-height:1.9;margin:0 0 24px}
+section.boost .boost-text .btn-ghost{display:inline-block;padding:12px 18px;border-radius:12px;text-decoration:none;border:1.5px solid var(--gold);color:#fff;font-weight:900;letter-spacing:.3px;transition:box-shadow .25s ease, transform .15s ease;background:transparent}
+section.boost .boost-text .btn-ghost:hover{box-shadow:0 0 14px var(--gold),0 0 28px rgba(255,215,0,.25);transform:translateY(-1px)}
+
+/* ============ ROAD MAP ============ */
+.roadmap{max-width:1300px;margin:70px auto;padding:0 var(--pad)}
+.roadmap h3{text-align:center;font-size:34px;font-weight:900;margin:0 0 24px}
+.road-wrap{position:relative;background:#0b1220;border:1px solid #1f2937;border-radius:18px;padding:46px 24px 28px;overflow:hidden}
+.road-svg{position:absolute;inset:auto 0 72px 0;height:180px;pointer-events:none}
+.road-svg path{fill:none;stroke:#94a3b8;stroke-width:2.2;stroke-dasharray:6 10;opacity:.6;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.road-svg path.animate{stroke:#cbd5e1;animation:dashmove 3.2s linear infinite}
+@keyframes dashmove{to{stroke-dashoffset:-160}}
+.road-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.step{position:relative;text-align:center;padding-top:96px}
+.pin{position:absolute;top:0;left:50%;transform:translate(-50%,0);width:72px;height:72px;border-radius:50%;background:#0f172a;border:2px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 0 1px rgba(255,215,0,.18),0 10px 24px rgba(0,0,0,.45);transition:transform .25s ease, box-shadow .25s ease, filter .25s ease}
+.pin:hover{transform:translate(-50%,-4px) scale(1.03);box-shadow:0 0 16px rgba(255,215,0,.45),0 0 28px rgba(255,215,0,.25),0 12px 30px rgba(0,0,0,.55)}
+.pin svg{width:34px;height:34px;color:var(--gold);filter:drop-shadow(0 0 6px rgba(255,215,0,.35))}
+.step h4{margin:6px 0 6px;font-size:16px;font-weight:900;letter-spacing:.3px}
+.step p{margin:0;color:#cbd5e1;line-height:1.7;font-size:14px}
+.step.reveal .pin{animation:pop .5s ease both}
+@keyframes pop{0%{transform:translate(-50%,8px) scale(.7);opacity:.5}100%{transform:translate(-50%,0) scale(1);opacity:1}}
+
+@media (max-width:1000px){.hero-slide{grid-template-columns:1fr}.hero-img{height:260px}.cards{grid-template-columns:repeat(2,1fr)}.road-svg{height:160px;bottom:84px}.pin{width:66px;height:66px}}
+@media (max-width:600px){.cards{grid-template-columns:1fr}.hero .prev{left:16px}.hero .next{right:16px}}
+@media (max-width:900px){.feature-section,section.boost{grid-template-columns:1fr}.feature-content,.boost-text{text-align:center}.road-steps{grid-template-columns:1fr 1fr;row-gap:36px}.road-svg{display:none}}
+</style>
+</head>
+<body>
+
+
+
+<header class="site-header">
+  <div class="topbar">
+    <div class="actions">
+      <a class="login-link" href="auth.html">تسجيل الدخول</a>
+      <a class="cart-btn" href="cart.html">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M6 6h15l-2 8H8L6 4H3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="9" cy="20" r="1.8" fill="currentColor"/>
+    <circle cx="18" cy="20" r="1.8" fill="currentColor"/>
+  </svg>
+  السلة <span class="badge" id="cartCount">0</span>
+</a>
+	  
+	  
+    </div>
+    <form class="searchbar" id="searchTop" role="search">
+      <input id="qTop" type="text" placeholder="ابحث عن خدمة/اشتراك..."><button type="submit">بحث</button>
+    </form>
+    <a class="brand" href="#"><img src="MAL.PNG" alt=""><span class="name">SRI TECH</span></a>
+  </div>
+ <nav class="navcats">
+  <a href="products.html?cat=social">SOCIAL MEDIA</a>
+  <a href="products.html?cat=productivity">PRODUCTIVITY</a>
+  <a href="products.html?cat=entertainment">ENTERTAINMENT</a>
+  <a href="products.html?cat=games">GAMES</a>
+  <a href="products.html?cat=softwares">SOFTWARES</a>
+  <a href="products.html?cat=home">HOME PAGE</a>
+</nav>
+  <div class="underline"></div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <button class="arrow prev" aria-label="السابق">‹</button>
+  <button class="arrow next" aria-label="التالي">›</button>
+  <div class="hero-track" id="heroTrack"></div>
+  <div class="dots" id="heroDots"></div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section>
+  <div class="trust-grid">
+    <div class="card"><b>دفع آمن</b><div class="mini">SSL • حماية بيانات</div></div>
+    <div class="card"><b>دعم فني</b><div class="mini">24/7 عبر واتساب</div></div>
+    <div class="card"><b>تفعيل سريع</b><div class="mini">خلال دقائق</div></div>
+    <div class="card"><b>ضمان</b><div class="mini">استرجاع خلال 24ساعة (تجريبي)</div></div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="cards" id="cards"></section>
+
+<!-- ============ FEATURE ============ -->
+<section class="feature-section">
+  <div class="feature-content">
+    <h2>GROW <span class="text-gradient text-gradient-glow">YOUR EXPERIENCE</span>, LIKE YOU ARE FIGHTING</h2>
+    <p>Be the first one in your career with our subscriptions and softwares. With the reliable price, you can easily purchase everything you need.</p>
+    <div class="feature-stats">
+      <div class="stat"><span class="tick">✓</span><span><b>3000+</b> PRODUCTS SOLD</span></div>
+      <div class="stat"><span class="tick">✓</span><span><b>50+</b> SERVICE PROVIDED</span></div>
+    </div>
+  </div>
+  <figure class="feature-visual">
+    <div class="img-frame" id="goldFrame">
+      <img src="https://theeagletech.com/wp-content/uploads/2024/10/gaming_red_eagle_has_a_helmet_on_his_head_ready_for_a_fight_a_funny_eagle_looks_f017226c-24f6-448b-a684-5f1d2797ec08.jpg" alt="Eagle">
+      <span class="spark s1">+</span><span class="spark s2">+</span><span class="spark s3">+</span><span class="spark s4">+</span>
+    </div>
+  </figure>
+</section>
+
+<!-- ============ BOOST ============ -->
+<section class="boost" id="boost-ent">
+  <div class="boost-cards" id="boostStack">
+    <article class="boost-card c1">
+      <img src="https://theeagletech.com/wp-content/uploads/2024/07/Amazon-Prime-Video-Subscription-700x524.jpg" alt="Prime Video">
+      <div class="meta"><div class="title">PRIME VIDEO SUBSCRIPTION</div><div class="stars">★★★★★</div></div>
+    </article>
+    <article class="boost-card c2">
+      <img src="https://theeagletech.com/wp-content/uploads/2024/07/Netflix-Premium-Subscription-700x524.jpg" alt="Netflix Premium">
+      <div class="meta"><div class="title">NETFLIX PREMIUM — SHARED</div><div class="stars">★★★★★</div></div>
+    </article>
+    <article class="boost-card c3">
+      <img src="https://theeagletech.com/wp-content/uploads/2024/07/Shahid-VIP-Subscription-700x524.jpg" alt="Shahid VIP">
+      <div class="meta"><div class="title">SHAHID VIP SUBSCRIPTION</div><div class="stars">★★★★☆</div></div>
+    </article>
+  </div>
+  <div class="boost-text">
+    <h3>BEST <span class="text-gradient">ENTERTAINMENT</span></h3>
+    <p>Enjoy subscriptions at great prices with privacy and warranty.</p>
+    <a href="#cards" class="btn-ghost">DISCOVER MORE</a>
+  </div>
+</section>
+
+<!-- ============ ROAD MAP ============ -->
+<section class="roadmap" id="roadmap">
+  <h3>ROAD MAP TO YOUR ORDER IN <span class="text-gradient">SRI TECH</span></h3>
+  <div class="road-wrap">
+    <svg class="road-svg" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+      <path id="dottedPath" d="M60,160 C320,60 880,60 1140,160"></path>
+    </svg>
+    <div class="road-steps">
+      <div class="step">
+        <div class="pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6h15l-2 8H8L6 4H3"/><circle cx="9" cy="20" r="1.8"/><circle cx="18" cy="20" r="1.8"/>
+          </svg>
+        </div>
+        <h4>MAKE ORDER</h4>
+        <p>اختَر المنتج وأكمل بيانات الدفع.</p>
+      </div>
+      <div class="step">
+        <div class="pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/>
+          </svg>
+        </div>
+        <h4>WE PREPARE IT</h4>
+        <p>تجهيز خلال 45–120 دقيقة وإرسال التفاصيل.</p>
+      </div>
+      <div class="step">
+        <div class="pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <h4>CONFIRM THE ORDER</h4>
+        <p>جرّب الخدمة ثم أكّد الطلب بتقييم.</p>
+      </div>
+      <div class="step">
+        <div class="pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M7 10h2v4H7zM15 10h2v4h-2zM9 16h6"/>
+          </svg>
+        </div>
+        <h4>AFTER SALE</h4>
+        <p>دعم 24/7 لأي مشكلة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAB واتساب (اختياري) -->
+<button class="fab whatsapp" id="btnWhats" title="واتساب" style="position:fixed;bottom:22px;left:22px;z-index:70;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;border:2px solid #fff1;background:#25D366;box-shadow:0 6px 16px rgba(0,0,0,.35);cursor:pointer">
+  <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M20.5 3.5A11 11 0 0 0 3 17.6L2 22l4.5-1A11 11 0 1 0 20.5 3.5ZM12 20a8 8 0 0 1-4.1-1.1l-.3-.2-2.6.6.6-2.5-.2-.3A8 8 0 1 1 20 12 8 8 0 0 1 12 20Zm4.6-5.5c-.3-.2-1.8-.9-2.1-1a.6.6 0 0 0-.8.2c-.2.3-.9 1-1 1.1s-.4.2-.7 0a6.6 6.6 0 0 1-1.9-1.2 6.9 6.9 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.6l.5-.6.2-.4v-.4c0-.2 0-.3-.1-.5l-.5-1c-.1-.3-.3-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2c0 1.1.8 2.2.9 2.3a9.8 9.8 0 0 0 3.7 3.6 4.1 4.1 0 0 0 2 .6 2.7 2.7 0 0 0 1.8-.7 2.3 2.3 0 0 0 .5-1.2c0-.3 0-.5-.1-.6s-.2-.2-.5-.3Z"/></svg>
+</button>
+
+<script>
+const WHATSAPP_NUMBER='962790000000'; // عدّل رقمك
+
+/* ===== بيانات المنتجات (8 عناصر) ===== */
+window.SERVICES = [
+  { id:101, title:"GAME PASS ULTIMATE", cat:"ألعاب", img:"https://theeagletech.com/wp-content/uploads/2023/12/youtube-premium-sub-for-website-700x524.webp", desc:"مكتبة ألعاب ضخمة + كلاود جيمينج على Xbox/PC.", old:12.99, now:9.99 },
+  { id:102, title:"NETFLIX PREMIUM", cat:"ترفيه", img:"https://theeagletech.com/wp-content/uploads/2023/12/Netflix-Subscription-700x524.webp", desc:"بث عالي الجودة على عدة أجهزة.", old:7.99, now:4.49 },
+  { id:103, title:"SPOTIFY FAMILY", cat:"ترفيه", img:"https://theeagletech.com/wp-content/uploads/2024/07/Shahid-VIP-Subscription-700x524.jpg", desc:"استماع بلا إعلانات لعدة أفراد.", old:8.99, now:5.25 },
+  { id:104, title:"DISNEY+ PREMIUM", cat:"ترفيه", img:"https://theeagletech.com/wp-content/uploads/2023/12/youtube-premium-sub-for-website-700x524.webp", desc:"أحدث أفلام مارفل وبيكسار.", old:7.99, now:5.49 },
+  { id:105, title:"beIN SPORTS", cat:"رياضة", img:"MAL.PNG", desc:"بث رياضي مباشر للدوريات العالمية.", old:14.99, now:10.99 },
+  { id:106, title:"MIDJOURNEY / STABLE DIFFUSION", cat:"سوفتوير", img:"MAL.PNG", desc:"أدوات ذكاء اصطناعي للصور — اشتراك/تجديد سريع.", now:6.00 },
+  { id:107, title:"ADOBE CREATIVE CLOUD", cat:"سوفتوير", img:"MAL.PNG", desc:"فوتوشوب + إليستريتور + برامج أخرى.", old:19.99, now:12.99 },
+  { id:108, title:"MICROSOFT 365", cat:"إنتاجية", img:"MAL.PNG", desc:"باقة أوفيس مع ون درايف — حساب سنوي.", old:9.99, now:6.49 }
+];
+
+/* ===== سلة مبسطة ===== */
+const ShopUtil=(()=>{
+  const F='data:image/svg+xml;utf8,'+encodeURIComponent("<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'640\' height=\'360\'><rect width=\'100%\' height=\'100%\' fill=\'#0b1220\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#cbd5e1\' font-family=\'Arial\' font-size=\'20\'>No Image</text></svg>");
+  const fmt=new Intl.NumberFormat('ar-JO',{style:'currency',currency:'JOD'});
+  const LS=(k,v)=>v===undefined?JSON.parse(localStorage.getItem(k)||'null'):(localStorage.setItem(k,JSON.stringify(v)),v);
+  const ids=()=>LS('cart')||[]; const save=a=>LS('cart',a);
+  const up=()=>document.getElementById('cartCount').textContent=(ids()).length; up();
+  return{Fallback:F,fmt,openCart:()=>alert('واجهة تجريبية — الدفع غير فعّال'),
+  addToCart:id=>{const c=ids();if(!c.includes(id)){c.push(id);save(c);up();alert('أضيفت للسلة')}}};
+})();
+window.ShopUtil=ShopUtil;
+
+/* ===== HERO (سلايدر + تأثير الإطار الذهبي) ===== */
+(function(){
+  const hero=document.getElementById('hero'), track=document.getElementById('heroTrack'), dots=document.getElementById('heroDots');
+  const slides=(window.SERVICES||[]).slice(0,3); // أول 3 في السلايدر
+  if(!slides.length){hero.style.display='none';return;}
+  track.innerHTML = slides.map(s=>`
+    <article class="hero-slide">
+      <div class="img-frame--hero">
+        <img class="hero-img" src="${s.img}" onerror="this.src='${ShopUtil.Fallback}'" alt="${s.title}">
+        <span class="hero-spark s1">+</span><span class="hero-spark s2">+</span><span class="hero-spark s3">+</span><span class="hero-spark s4">+</span>
+      </div>
+      <div>
+        <h1>${s.title.replace('SPOTIFY','<span class="text-gradient">SPOTIFY</span>')}</h1>
+        <p>${s.desc||''}</p>
+        <div style="display:flex;gap:8px;align-items:center;margin:8px 0">
+          ${s.old?`<span class="old">${ShopUtil.fmt.format(s.old)}</span>`:''}
+          ${s.now?`<span class="new">${ShopUtil.fmt.format(s.now)}</span>`:''}
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" onclick="alert('تفاصيل تجريبية')">ORDER NOW</button>
+          <button class="btn" onclick="ShopUtil.addToCart(${s.id})">Add to Cart</button>
+        </div>
+      </div>
+    </article>`).join('');
+
+  dots.innerHTML = slides.map((_,i)=>`<button data-i="${i}" ${i===0?'class="active"':''}></button>`).join('');
+  let idx=0,t=null; const go=n=>{idx=(n+slides.length)%slides.length; track.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===idx));};
+  const auto=()=>{clearInterval(t); t=setInterval(()=>go(idx+1),5000)}; document.querySelector('.hero .prev').onclick=()=>{go(idx-1);auto()}; document.querySelector('.hero .next').onclick=()=>{go(idx+1);auto()};
+  dots.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){go(+e.target.dataset.i);auto();}}); go(0); auto();
+
+  // ميلان لكل إطارات السلايدر
+  document.querySelectorAll('.img-frame--hero').forEach(frame=>{
+    frame.addEventListener('mousemove', e=>{
+      const r=frame.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      const max=6; frame.style.transform=`rotateY(${x*max}deg) rotateX(${-y*max}deg)`;
+    });
+    frame.addEventListener('mouseleave', ()=>{frame.style.transform='rotateY(0) rotateX(0)';});
+  });
+})();
+
+/* ===== PRODUCTS grid (يعرض كل العناصر) ===== */
+(function(){
+  const box=document.getElementById('cards'); const picks=(window.SERVICES||[]);
+  box.innerHTML=picks.map(s=>`
+    <article class="card" onclick="alert('تفاصيل تجريبية')">
+      <img src="${s.img}" onerror="this.src='${ShopUtil.Fallback}'" alt="${s.title}">
+      <div class="pad">
+        <div style="font-weight:800;margin-bottom:6px">${s.title}</div>
+        <div class="mini">${s.desc||''}</div>
+        <div class="price" style="margin-top:10px">
+          ${s.old?`<span class="old">${ShopUtil.fmt.format(s.old)}</span>`:''}
+          ${s.now?`<span class="new">${ShopUtil.fmt.format(s.now)}</span>`:''}
+        </div>
+        <button class="btn" style="margin-top:10px" onclick="event.stopPropagation(); ShopUtil.addToCart(${s.id})">أضف للسلة</button>
+      </div>
+    </article>`).join('');
+})();
+
+/* ===== BOOST tilt ===== */
+(function(){
+  const box=document.getElementById('boostStack'); if(!box) return;
+  const c1=box.querySelector('.boost-card.c1'), c2=box.querySelector('.boost-card.c2'), c3=box.querySelector('.boost-card.c3');
+  box.addEventListener('mousemove',e=>{
+    const r=box.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    const tilt=8;
+    box.style.transform=`rotateY(${x*tilt}deg) rotateX(${-y*tilt}deg)`;
+    c2.style.transform=`translate(-50%,-50%) rotate(${x*-2}deg) translateX(${-40+x*10}px) translateY(${y*10}px)`;
+    c1.style.transform=`translate(-50%,-50%) rotate(${-14+x*-2}deg) translateX(${-160+x*10}px) translateY(${12+y*10}px)`;
+    c3.style.transform=`translate(-50%,-50%) rotate(${8+x*2}deg) translateX(${110+x*10}px) translateY(${8+y*10}px)`;
+  });
+  box.addEventListener('mouseleave',()=>{
+    box.style.transform='rotateY(0) rotateX(0)';
+    c1.style.transform='translate(-50%,-50%) rotate(-14deg) translateX(-160px) translateY(12px)';
+    c2.style.transform='translate(-50%,-50%) rotate(-4deg)  translateX(-40px)';
+    c3.style.transform='translate(-50%,-50%) rotate(8deg)   translateX(110px) translateY(8px)';
+  });
+})();
+
+/* ===== ROAD MAP ظهور وحركة ===== */
+(function(){
+  const sec=document.getElementById('roadmap'); if(!sec) return;
+  const path=sec.querySelector('#dottedPath'); const steps=[...sec.querySelectorAll('.step')];
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        sec.querySelector('.road-svg path').classList.add('animate');
+        steps.forEach((s,i)=>setTimeout(()=>s.classList.add('reveal'), i*120));
+        io.disconnect();
+      }
+    });
+  },{threshold:.25});
+  io.observe(sec);
+})();
+
+/* واتساب */
+document.getElementById('btnWhats').addEventListener('click',()=>{
+  const txt=encodeURIComponent('مرحبًا SRI TECH 👋'); window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`,'_blank');
+});
+</script>
+</body>
+</html>

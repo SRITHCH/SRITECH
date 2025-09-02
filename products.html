@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SRI TECH — منتجات</title>
+<style>
+:root{
+  --gold:#ffd700;--ink:#0b1220;--muted:#cbd5e1;
+  --header-grad:linear-gradient(270deg,#000,#b91c1c,#000,#dc2626);
+  --bg-grad:linear-gradient(270deg,#1E90FF,#DC2626,#000,#EE82EE,#1E90FF);
+  --radius:14px;--pad:16px;
+  --gold-grad:linear-gradient(90deg,#ffedd5,#fbbf24,#f59e0b,#ffd700);
+}
+@keyframes redBlackMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+*{box-sizing:border-box}
+body{margin:0;color:#fff;font-family:system-ui,Arial;background:var(--bg-grad);background-attachment:fixed}
+.text-gradient{-webkit-background-clip:text;background-clip:text;color:transparent;background-image:var(--gold-grad)}
+/* Header صغير */
+header{position:sticky;top:0;z-index:40;background:var(--header-grad);background-size:500% 500%;animation:redBlackMove 15s ease infinite;border-bottom:5px solid #b8860b;border-radius:14px;padding:10px var(--pad);margin:0 0 16px}
+.bar{max-width:1200px;margin:0 auto;display:flex;gap:14px;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:12px;align-items:center;color:#fff;text-decoration:none}
+.brand img{width:54px;height:54px}
+.brand b{font-size:22px}
+.back{padding:10px 14px;border:1px solid var(--gold);border-radius:10px;color:#fff;text-decoration:none}
+.back:hover{box-shadow:0 0 12px var(--gold)}
+/* Controls */
+.controls{max-width:1200px;margin:0 auto 10px;padding:0 var(--pad);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.controls .chip{padding:8px 12px;border:1px solid var(--gold);border-radius:12px;background:#00000033}
+.controls input{flex:1;min-width:220px;background:#0b1220;border:1px solid #1f2937;color:#fff;border-radius:12px;padding:12px 14px}
+.controls select{background:#0b1220;color:#fff;border:1px solid #1f2937;border-radius:12px;padding:12px 14px}
+/* Grid */
+.wrap{max-width:1200px;margin:0 auto 30px;padding:0 var(--pad)}
+.title{display:flex;align-items:baseline;gap:10px;margin:6px 0 12px}
+.title h1{margin:0;font-size:28px;font-weight:900}
+.breadcrumbs a{color:#fff;text-decoration:none;opacity:.8}
+.breadcrumbs a:hover{opacity:1}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#0b1220;border:1px solid #1f2937;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
+.card img{width:100%;height:160px;object-fit:cover;background:#0b1220}
+.pad{padding:12px}.mini{color:#cbd5e1;font-size:13px;margin-top:4px}
+.price{display:flex;gap:10px;align-items:center;font-weight:800}
+.old{color:#94a3b8;text-decoration:line-through}.new{color:var(--gold)}
+.btn{background:transparent;color:#fff;border:2px solid #e5e7eb;border-radius:10px;padding:10px 18px;cursor:pointer;font-weight:800}
+.empty{padding:30px;border:1px dashed #ffffff55;border-radius:12px;text-align:center;color:#cbd5e1}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="index.html"><img src="MAL.PNG" alt=""><b>SRI TECH</b></a>
+    <a class="back" href="index.html">الرجوع للصفحة الرئيسية</a>
+  </div>
+</header>
+
+<section class="wrap">
+  <div class="title">
+    <h1 id="pageTitle">Products</h1>
+    <div class="breadcrumbs">/ <a href="index.html">Home</a> / <span id="crumb">All</span></div>
+  </div>
+
+  <div class="controls">
+    <span class="chip">التصنيف: <b id="catName">All</b></span>
+    <input id="q" type="search" placeholder="ابحث داخل هذا التصنيف...">
+    <select id="sort">
+      <option value="default">الترتيب: الافتراضي</option>
+      <option value="price-asc">السعر: الأرخص أولاً</option>
+      <option value="price-desc">السعر: الأغلى أولاً</option>
+      <option value="title-asc">الاسم: أ-ي</option>
+      <option value="title-desc">الاسم: ي-أ</option>
+    </select>
+  </div>
+
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty" style="display:none">لا توجد منتجات مطابقة الآن.</div>
+</section>
+
+<script>
+/* ============== بيانات المنتجات (انسخها كما هي من موقعك) ============== */
+window.SERVICES = [
+  { id:101, title:"GAME PASS ULTIMATE", cat:"games", img:"MAL.PNG", desc:"مكتبة ألعاب ضخمة + كلاود جيمينج على Xbox/PC.", old:12.99, now:9.99 },
+  { id:102, title:"NETFLIX PREMIUM", cat:"entertainment", img:"MAL.PNG", desc:"بث عالي الجودة على عدة أجهزة.", old:7.99, now:4.49 },
+  { id:103, title:"SPOTIFY FAMILY", cat:"entertainment", img:"MAL.PNG", desc:"استماع بلا إعلانات لعدة أفراد.", old:8.99, now:5.25 },
+  { id:104, title:"DISNEY+ PREMIUM", cat:"entertainment", img:"MAL.PNG", desc:"أحدث أفلام مارفل وبيكسار.", old:7.99, now:5.49 },
+  { id:105, title:"beIN SPORTS", cat:"entertainment", img:"MAL.PNG", desc:"بث رياضي مباشر للدوريات العالمية.", old:14.99, now:10.99 },
+  { id:106, title:"MIDJOURNEY / STABLE DIFFUSION", cat:"softwares", img:"MAL.PNG", desc:"أدوات ذكاء اصطناعي للصور — اشتراك/تجديد سريع.", now:6.00 },
+  { id:107, title:"ADOBE CREATIVE CLOUD", cat:"softwares", img:"MAL.PNG", desc:"فوتوشوب + إليستريتور + برامج أخرى.", old:19.99, now:12.99 },
+  { id:108, title:"MICROSOFT 365", cat:"productivity", img:"MAL.PNG", desc:"باقة أوفيس مع ون درايف — حساب سنوي.", old:9.99, now:6.49 },
+  { id:109, title:"INSTAGRAM FOLLOWERS", cat:"social", img:"MAL.PNG", desc:"باقة متابعين/تفاعل.", now:2.99 },
+  { id:110, title:"TIKTOK COINS", cat:"social", img:"MAL.PNG", desc:"شحن عملات تيك توك.", now:3.99 }
+];
+
+/* ============== إعدادات التصنيفات ============== */
+const CAT_LABELS = {
+  "social":"SOCIAL MEDIA",
+  "productivity":"PRODUCTIVITY",
+  "entertainment":"ENTERTAINMENT",
+  "games":"GAMES",
+  "softwares":"SOFTWARES",
+  "home":"HOME PAGE",
+  "all":"ALL"
+};
+
+/* ============== أدوات مساعدة ============== */
+const fmt=new Intl.NumberFormat('ar-JO',{style:'currency',currency:'JOD'});
+const Fallback='data:image/svg+xml;utf8,'+encodeURIComponent("<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'640\' height=\'360\'><rect width=\'100%\' height=\'100%\' fill=\'#0b1220\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#cbd5e1\' font-family=\'Arial\' font-size=\'20\'>No Image</text></svg>");
+function $(sel){return document.querySelector(sel)}
+function render(list){
+  const grid=$("#grid"), empty=$("#empty");
+  if(!list.length){grid.innerHTML=""; empty.style.display="block"; return;}
+  empty.style.display="none";
+  grid.innerHTML=list.map(s=>`
+    <article class="card">
+      <img src="${s.img}" onerror="this.src='${Fallback}'" alt="${s.title}">
+      <div class="pad">
+        <div style="font-weight:900;margin-bottom:6px">${s.title}</div>
+        <div class="mini">${s.desc||""}</div>
+        <div class="price" style="margin-top:10px">
+          ${s.old?`<span class="old">${fmt.format(s.old)}</span>`:""}
+          ${s.now?`<span class="new">${fmt.format(s.now)}</span>`:""}
+        </div>
+        <button class="btn" style="margin-top:10px" onclick="alert('طلب تجريبي')">أضف للسلة</button>
+      </div>
+    </article>`).join('');
+}
+
+/* ============== قراءة التصنيف من الرابط ============== */
+const url = new URL(location.href);
+const cat = (url.searchParams.get('cat')||'all').toLowerCase();
+const qInput = $("#q"), sortSel = $("#sort");
+
+const all = window.SERVICES.slice();
+let current = all.filter(p=> cat==='all' ? true : (p.cat===cat));
+const catName = CAT_LABELS[cat] || CAT_LABELS.all;
+
+$("#pageTitle").innerHTML = `<span class="text-gradient">${catName}</span> — Products`;
+$("#crumb").textContent = catName;
+$("#catName").textContent = catName;
+
+/* ============== بحث وترتيب ============== */
+function applyFilters(){
+  const q = qInput.value.trim().toLowerCase();
+  let list = current.filter(p => !q || (p.title.toLowerCase().includes(q) || (p.desc||"").toLowerCase().includes(q)));
+
+  switch (sortSel.value){
+    case "price-asc":  list = list.sort((a,b)=>(a.now||a.old||0)-(b.now||b.old||0)); break;
+    case "price-desc": list = list.sort((a,b)=>(b.now||b.old||0)-(a.now||a.old||0)); break;
+    case "title-asc":  list = list.sort((a,b)=>a.title.localeCompare(b.title)); break;
+    case "title-desc": list = list.sort((a,b)=>b.title.localeCompare(a.title)); break;
+    default: break;
+  }
+  render(list);
+}
+qInput.addEventListener('input',applyFilters);
+sortSel.addEventListener('change',applyFilters);
+
+/* ============== بدء التشغيل ============== */
+render(current);
+</script>
+</body>
+</html>

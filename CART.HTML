@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SRI TECH — سلة المشتريات</title>
+<style>
+:root{
+  --gold:#ffd700;--gold-soft:#e6c200;--ink:#0b1220;--muted:#cbd5e1;
+  --header-grad:linear-gradient(270deg,#000,#b91c1c,#000,#dc2626);
+  --bg-grad:linear-gradient(270deg,#1E90FF,#DC2626,#000,#EE82EE,#1E90FF);
+  --radius:16px;--pad:16px;
+  --gold-grad:linear-gradient(90deg,#ffedd5,#fbbf24,#f59e0b,#ffd700);
+}
+@keyframes redBlackMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes sweep{to{transform:rotate(360deg)}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Arial;background:var(--bg-grad);background-attachment:fixed;color:#fff}
+a{color:#fff;text-decoration:none}
+.text-gradient{-webkit-background-clip:text;background-clip:text;color:transparent;background-image:var(--gold-grad)}
+
+/* Header */
+header{position:sticky;top:0;z-index:40;background:var(--header-grad);background-size:500% 500%;animation:redBlackMove 15s ease infinite;border-bottom:5px solid #b8860b;border-radius:14px;padding:10px var(--pad);margin:0 0 18px}
+.bar{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{width:56px;height:56px}
+.brand b{font-size:22px}
+.search{justify-self:center;width:100%;max-width:560px;display:flex;gap:8px}
+.search input{flex:1;background:#0b1220;border:1px solid #1f2937;color:#fff;border-radius:999px;padding:10px 14px}
+.nav-actions{display:flex;gap:10px;align-items:center;justify-self:end}
+.btn-outline{padding:10px 14px;border:1px solid var(--gold);border-radius:10px}
+.cartlink{position:relative;padding:10px 14px;border:1px solid var(--gold);border-radius:10px;display:inline-flex;align-items:center;gap:8px}
+.badge{position:absolute;top:-8px;inset-inline-end:-8px;background:#ef4444;color:#fff;min-width:22px;height:22px;border-radius:999px;display:grid;place-items:center;font-weight:800;font-size:12px}
+
+/* Layout */
+.wrap{max-width:1200px;margin:0 auto 40px;padding:0 var(--pad)}
+.headline{display:flex;justify-content:space-between;align-items:end;margin:8px 0 16px}
+.headline h1{margin:0;font-size:28px;font-weight:900}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Cart grid */
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.card{background:#0b1220;border:1px solid #1f2937;border-radius:16px;overflow:hidden}
+.items{display:grid}
+.row{display:grid;grid-template-columns:80px 1fr auto auto auto;gap:12px;align-items:center;padding:12px;border-bottom:1px solid #111827}
+.row:last-child{border-bottom:none}
+.thumb{width:80px;height:64px;border-radius:10px;object-fit:cover;background:#000;border:1px solid #1f2937}
+.title{font-weight:900}
+.mini{color:#cbd5e1;font-size:13px;margin-top:4px}
+.price{font-weight:900}
+.qty{display:inline-flex;align-items:center;border:1px solid #1f2937;border-radius:10px;overflow:hidden}
+.qty button{all:unset;padding:8px 10px;cursor:pointer}
+.qty input{all:unset;width:40px;text-align:center;padding:8px}
+.remove{background:#ef4444;border:none;color:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+
+/* Summary */
+.summary{position:sticky;top:90px;padding:14px;border-radius:16px;background:#0f172a;border:1.5px solid var(--gold);box-shadow:0 0 0 1px rgba(255,215,0,.14),0 12px 30px rgba(0,0,0,.35);overflow:hidden}
+.summary::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 72%,rgba(255,215,0,.18) 75%,transparent 78%);animation:sweep 4s linear infinite;mix-blend-mode:screen;pointer-events:none}
+.summary h3{margin:0 0 10px;font-size:20px}
+.line{display:flex;justify-content:space-between;margin:8px 0}
+.total{font-weight:900;font-size:18px}
+.btn-primary{width:100%;margin-top:12px;background:transparent;border:2px solid var(--gold);color:#fff;border-radius:12px;padding:12px 16px;font-weight:900;cursor:pointer}
+.btn-primary:hover{box-shadow:0 0 12px var(--gold)}
+.meta{color:#cbd5e1;font-size:13px;margin-top:8px}
+
+/* Empty state */
+.empty{padding:26px;text-align:center;color:#cbd5e1}
+.empty a{display:inline-block;margin-top:10px}
+
+/* Footer helpers */
+.actions-bottom{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn-ghost{background:transparent;border:1px solid #1f2937;color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}
+.btn-ghost:hover{border-color:var(--gold)}
+
+/* Responsive */
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+@media (max-width:640px){.row{grid-template-columns:72px 1fr auto;gap:10px}.hide-sm{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="index.html"><img src="MAL.PNG" alt=""><b>SRI TECH</b></a>
+    <form class="search" onsubmit="event.preventDefault()">
+      <input type="search" placeholder="ابحث داخل الموقع...">
+    </form>
+    <div class="nav-actions">
+      <a class="btn-outline" href="auth.html">تسجيل الدخول</a>
+      <a class="cartlink" href="cart.html">السلة <span class="badge" id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="headline">
+    <h1>سلة المشتريات <span class="text-gradient">SRI TECH</span></h1>
+    <div class="tools">
+      <button class="btn-ghost" id="btnClear">تفريغ السلة</button>
+      <a class="btn-ghost" href="products.html?cat=all">متابعة التسوق</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- قائمة العناصر -->
+    <section class="card">
+      <div id="cartItems" class="items"></div>
+      <div id="emptyState" class="empty" style="display:none">
+        السلة فارغة الآن.<br>
+        <a class="btn-outline" href="products.html?cat=all">ابدأ التسوق</a>
+      </div>
+    </section>
+
+    <!-- الملخص -->
+    <aside class="summary">
+      <h3>ملخص الطلب</h3>
+      <div class="line"><span>عدد العناصر</span><span id="sumCount">0</span></div>
+      <div class="line"><span>المجموع</span><span id="sumSubtotal">0</span></div>
+      <div class="line"><span>الخصم</span><span id="sumDiscount">0</span></div>
+      <div class="line total"><span>الإجمالي</span><span id="sumTotal">0</span></div>
+      <button class="btn-primary" id="btnCheckout">إتمام الطلب</button>
+      <div class="meta">الدفع/التسليم تجريبي حاليًا. سيتم ربطه لاحقًا.</div>
+    </aside>
+  </div>
+
+  <div class="actions-bottom">
+    <a class="btn-ghost" href="index.html">العودة للرئيسية</a>
+  </div>
+</main>
+
+<script>
+/* ===== بيانات المنتجات (بدّل الروابط/الأسعار كما تشاء) =====
+   إن كان لديك data.js مشترك، احذف هذه المصفوفة وأدرج data.js بدلًا منها. */
+window.SERVICES = [
+  { id:101, title:"GAME PASS ULTIMATE", cat:"ألعاب", img:"https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?w=1200", desc:"مكتبة ألعاب ضخمة + كلاود جيمينج.", old:12.99, now:9.99 },
+  { id:102, title:"NETFLIX PREMIUM", cat:"ترفيه", img:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200", desc:"بث عالي الجودة.", old:7.99, now:4.49 },
+  { id:103, title:"SPOTIFY FAMILY", cat:"ترفيه", img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200", desc:"استماع بلا إعلانات.", old:8.99, now:5.25 },
+  { id:104, title:"DISNEY+ PREMIUM", cat:"ترفيه", img:"https://images.unsplash.com/photo-1542204637-e67bc7d41e48?w=1200", desc:"أفلام مارفل وبيكسار.", old:7.99, now:5.49 },
+  { id:105, title:"beIN SPORTS", cat:"رياضة", img:"https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200", desc:"بث رياضي مباشر.", old:14.99, now:10.99 },
+  { id:106, title:"MIDJOURNEY / STABLE DIFFUSION", cat:"سوفتوير", img:"https://images.unsplash.com/photo-1542831371-d531d36971e6?w=1200", desc:"ذكاء اصطناعي للصور.", now:6.00 },
+  { id:107, title:"ADOBE CREATIVE CLOUD", cat:"سوفتوير", img:"https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=1200", desc:"فوتوشوب + إليستريتور.", old:19.99, now:12.99 },
+  { id:108, title:"MICROSOFT 365", cat:"إنتاجية", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200", desc:"أوفيس + ون درايف.", old:9.99, now:6.49 }
+];
+
+/* ===== مفاتيح التخزين =====
+   توافق مع نظامك القديم:
+   - لو كانت localStorage.cart = [101,102] ← نحولها تلقائيًا إلى [{id:101, qty:1}, ...]
+   - الجديد: نخزن دائمًا مصفوفة كائنات {id, qty} */
+const KEY='cart';
+const Fallback='data:image/svg+xml;utf8,'+encodeURIComponent("<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'640\' height=\'360\'><rect width=\'100%\' height=\'100%\' fill=\'#0b1220\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#cbd5e1\' font-family=\'Arial\' font-size=\'20\'>No Image</text></svg>");
+const fmt=new Intl.NumberFormat('ar-JO',{style:'currency',currency:'JOD'});
+
+/* أدوات صغيرة */
+const $=s=>document.querySelector(s);
+const byId=id=>window.SERVICES.find(x=>x.id===id)||null;
+function readCart(){
+  let raw = JSON.parse(localStorage.getItem(KEY)||'[]');
+  if(!Array.isArray(raw)) raw=[];
+  // تحويل من [id,id] إلى [{id,qty}]
+  if(raw.length && typeof raw[0]!=='object'){
+    const map=new Map();
+    raw.forEach(id=>map.set(id,(map.get(id)||0)+1));
+    raw=[...map.entries()].map(([id,qty])=>({id,qty}));
+    localStorage.setItem(KEY,JSON.stringify(raw));
+  }
+  return raw;
+}
+function writeCart(arr){ localStorage.setItem(KEY,JSON.stringify(arr)); }
+function setBadge(){
+  const count = readCart().reduce((a,x)=>a+(x.qty||1),0);
+  $('#cartCount').textContent=count;
+}
+
+/* رسم العناصر */
+function render(){
+  const list = readCart();
+  const box = $('#cartItems'), empty = $('#emptyState');
+  if(!list.length){ box.innerHTML=''; empty.style.display='block'; setSummary(0,0,0); setBadge(); return; }
+  empty.style.display='none';
+
+  box.innerHTML = list.map(({id,qty})=>{
+    const p=byId(id); if(!p) return '';
+    const price = p.now ?? p.old ?? 0;
+    const lineTotal = price * qty;
+    return `
+    <div class="row" data-id="${id}">
+      <img class="thumb" src="${p.img}" onerror="this.src='${Fallback}'" alt="${p.title}">
+      <div>
+        <div class="title">${p.title}</div>
+        <div class="mini">${p.cat||''} • ${p.desc||''}</div>
+      </div>
+      <div class="price hide-sm">${price?fmt.format(price):''}</div>
+      <div class="qty">
+        <button class="dec" title="تقليل">−</button>
+        <input class="q" type="text" inputmode="numeric" value="${qty||1}">
+        <button class="inc" title="زيادة">+</button>
+      </div>
+      <button class="remove" title="حذف">حذف</button>
+    </div>
+    <div class="row hide-sm" style="grid-template-columns:80px 1fr auto auto auto">
+      <div></div><div></div>
+      <div class="mini">المجموع الفرعي</div>
+      <div style="font-weight:900">${fmt.format(lineTotal)}</div>
+      <div></div>
+    </div>`;
+  }).join('');
+
+  attachRowEvents();
+  recompute();
+  setBadge();
+}
+
+/* أحداث عناصر السطر */
+function attachRowEvents(){
+  document.querySelectorAll('.row .inc').forEach(b=>b.addEventListener('click',()=>changeQty(b, +1)));
+  document.querySelectorAll('.row .dec').forEach(b=>b.addEventListener('click',()=>changeQty(b, -1)));
+  document.querySelectorAll('.row .remove').forEach(b=>b.addEventListener('click',()=>removeRow(b)));
+  document.querySelectorAll('.row .q').forEach(inp=>{
+    inp.addEventListener('input', ()=>{inp.value = inp.value.replace(/[^\d]/g,'');});
+    inp.addEventListener('change', ()=>setQty(inp));
+    inp.addEventListener('blur', ()=>setQty(inp));
+  });
+}
+function findRowEl(el){ return el.closest('.row'); }
+function changeQty(btn,delta){
+  const row=findRowEl(btn); const id=+row.dataset.id;
+  const cart=readCart(); const i=cart.findIndex(x=>x.id===id); if(i<0) return;
+  cart[i].qty = Math.max(1, (cart[i].qty||1)+delta);
+  writeCart(cart); render();
+}
+function setQty(inp){
+  const row=findRowEl(inp); const id=+row.dataset.id; let v=parseInt(inp.value||'1',10);
+  if(!Number.isFinite(v) || v<1) v=1;
+  const cart=readCart(); const i=cart.findIndex(x=>x.id===id); if(i<0) return;
+  cart[i].qty=v; writeCart(cart); render();
+}
+function removeRow(btn){
+  const row=findRowEl(btn); const id=+row.dataset.id;
+  const cart=readCart().filter(x=>x.id!==id); writeCart(cart); render();
+}
+
+/* ملخص */
+function recompute(){
+  const cart=readCart();
+  let count=0, sub=0;
+  cart.forEach(({id,qty})=>{
+    const p=byId(id); const price=(p?.now ?? p?.old ?? 0);
+    count += (qty||1);
+    sub += price * (qty||1);
+  });
+  const discount = 0; // يمكن إضافة كوبون لاحقًا
+  const total = sub - discount;
+  setSummary(count, sub, total, discount);
+}
+function setSummary(count, subtotal, total, discount=0){
+  $('#sumCount').textContent = count;
+  $('#sumSubtotal').textContent = fmt.format(subtotal||0);
+  $('#sumDiscount').textContent = fmt.format(discount||0);
+  $('#sumTotal').textContent = fmt.format(total||0);
+}
+
+/* أزرار أعلى/يمين */
+$('#btnClear').addEventListener('click', ()=>{
+  if(confirm('هل تريد تفريغ السلة بالكامل؟')){
+    writeCart([]); render();
+  }
+});
+$('#btnCheckout').addEventListener('click', ()=>{
+  alert('الدفع تجريبي — يمكن ربطه لاحقًا ببوابة دفع. سيتم إرسال تفاصيل الطلب على واتساب/إيميل.');
+});
+
+/* تحديث الشارة أولًا ثم الرسم */
+setBadge(); render();
+
+/* ===== ملاحظة توافق أمامية =====
+   إذا كنت تضيف للسلة من صفحاتك القديمة عبر:
+     localStorage.cart = JSON.stringify([101,102])
+   فهذه الصفحة ستحولها تلقائيًا إلى:
+     [{id:101, qty:1}, {id:102, qty:1}]
+   ولا تحتاج لتغيير كود الإضافة القديم. */
+</script>
+</body>
+</html>
